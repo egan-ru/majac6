@@ -7,8 +7,12 @@
 void main(void){
     boot_init();
     wdt_init();
+    coretimer_init();
+    
     
     for(;;){
+        wdt_ctl();
+        
         
     }
 }
@@ -20,7 +24,7 @@ void main(void){
  * 
  */
 void __interrupt generic_interrupt_handler(void){
-    
-    
-    
+    if(CORETIMER_REQ){
+        coretimer_handler();
+    } 
 }

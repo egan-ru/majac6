@@ -1,6 +1,9 @@
 #ifndef CORE_H
 #define	CORE_H
 #include "hardware.h"
+#include "core_timer.h"
+#include "../drivers/pic14/wdt/wdt.h"
+#include "../drivers/pic14/adctype0/adctype0.h"
 
 
 #ifdef pic12f675_xc8 

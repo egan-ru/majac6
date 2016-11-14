@@ -20,7 +20,7 @@
 
 #ifdef CORE_H
 /*pic12f675 conf*/
-#pragma config FOSC = HS        // Oscillator Selection bits (HS oscillator: High speed crystal/resonator on GP4/OSC2/CLKOUT and GP5/OSC1/CLKIN)
+#pragma config FOSC = INTRCIO   // Oscillator Selection bits (INTOSC oscillator: I/O function on GP4/OSC2/CLKOUT pin, I/O function on GP5/OSC1/CLKIN)
 #pragma config WDTE = ON       // Watchdog Timer Enable bit (WDT enabled)
 #pragma config PWRTE = ON       // Power-Up Timer Enable bit (PWRT enabled)
 #pragma config MCLRE = OFF      // GP3/MCLR pin function select (GP3/MCLR pin function is digital I/O, MCLR internally tied to VDD)
