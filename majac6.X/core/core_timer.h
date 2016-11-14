@@ -6,6 +6,9 @@
 void coretimer_handler(void);
 #endif
 
+void (*volatile ct_handler0)(void);
+void (*volatile ct_handler1)(void);
+volatile uint8_t counter0, counter1;
 
 
 #endif CORE_TIMER_H
