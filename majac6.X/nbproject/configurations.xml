@@ -17,6 +17,8 @@
           <itemPath>drivers/pic14/adctype0/adctype0.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="soft_uart" projectFiles="true">
+          <itemPath>drivers/pic14/soft_uart/soft_uart.c</itemPath>
+          <itemPath>drivers/pic14/soft_uart/soft_uart.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f3" displayName="wdt" projectFiles="true">
           <itemPath>drivers/pic14/wdt/wdt.c</itemPath>
@@ -50,6 +52,7 @@
     <Elem>core</Elem>
     <Elem>drivers/pic14/adctype0</Elem>
     <Elem>drivers/pic14/wdt</Elem>
+    <Elem>drivers/pic14/soft_uart</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
