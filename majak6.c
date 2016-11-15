@@ -24,19 +24,19 @@
 
 __CONFIG(HS & PWRTEN & MCLRDIS & BORDIS & WDTDIS);
 /*
-char buff[32]; // буфер для выдачи в порт RS232
+char buff[32]; // RS-232 output buffer
 char beging=0,end=0;
 */
 
 
 #define LED GPIO2
-#define MODE GPIO3 // режим работы
+#define MODE GPIO3
 bit msTime=0;
 char mjN=0;
-bit state=0; // копия состояния детектора уровня
+bit state=0; //copy for level detector state
 
-// переменные для RS232
-bit send=0; // передавать или нет данные
+//RS-232 variables
+bit send=0; //should we transmit or not
 unsigned int a;
 #define pinOut GPIO0
 
@@ -47,10 +47,10 @@ void main(void){
 unsigned int i;
 
 
-    OPTION=0x0F;//предделителя нет ТМР0 от внутреннего
+    OPTION=0x0F; //TMR0 source is internal w wiith no prescaler
     VRCON=0;//генератор опорного
 
-    CMCON=7;//выкл компараторов
+    CMCON=7; //Comparator off
     WPU=0;//подтяжка вся выключена
     INTCON=0;//запрет всех прерываний
     IOCB=0;//прерывания от ног убрать
