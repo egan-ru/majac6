@@ -33,4 +33,12 @@
 #error build target must be selected
 #endif
 
+typedef enum{
+    SUCCESS = 0,
+    BUSY,
+    DONE,
+    ERROR = 0x80,   //after this value error codes
+}result_t;
+
+
 #endif	/* HARDWARE_H */
