@@ -51,11 +51,11 @@ unsigned int i;
     VRCON=0;//генератор опорного
 
     CMCON=7; //Comparator off
-    WPU=0;//подтяжка вся выключена
-    INTCON=0;//запрет всех прерываний
-    IOCB=0;//прерывания от ног убрать
-    GPIO=0;//все ноги обнулить
-    TRISIO=0b111010;//все входы кроме GP0 и GP2
+    WPU=0;//disable all weak pullups
+    INTCON=0;//disable all interrupts
+    IOCB=0;//disable interruprs on port change
+    GPIO=0;//all pins to 0
+    TRISIO=0b111010;//all pins are inputs except GP0 and GP2
 
 	pinOut=1;
 
@@ -75,7 +75,7 @@ unsigned int i;
             while(!msTime);
             msTime=0;
         }
-        // после первого фронта подождать 900мс
+        // wait 900ms after first rising edge
 
         if(mjN>3) continue; // всё с начала т.к. провал был
 
