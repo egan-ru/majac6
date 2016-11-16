@@ -51,11 +51,11 @@ unsigned int i;
     VRCON=0;//генератор опорного
 
     CMCON=7; //Comparator off
-    WPU=0;//подтяжка вся выключена
-    INTCON=0;//запрет всех прерываний
-    IOCB=0;//прерывания от ног убрать
-    GPIO=0;//все ноги обнулить
-    TRISIO=0b111010;//все входы кроме GP0 и GP2
+    WPU=0;//disable all weak pullups
+    INTCON=0;//disable all interrupts
+    IOCB=0;//disable interruprs on port change
+    GPIO=0;//all pins to 0
+    TRISIO=0b111010;//all pins are inputs except GP0 and GP2
 
 	pinOut=1;
 
@@ -75,7 +75,7 @@ unsigned int i;
             while(!msTime);
             msTime=0;
         }
-        // после первого фронта подождать 900мс
+        // wait 900ms after first rising edge
 
         if(mjN>3) continue; // всё с начала т.к. провал был
 
@@ -83,52 +83,52 @@ unsigned int i;
             while(!msTime);
             msTime=0;
         }
-        if(mjN!=4) continue; // если нет второго фронта в воротах 950-1050
+        if(mjN!=4) continue; // if no second rising edge in window 950-1050
 
         for(i=900;i;i--){
             while(!msTime);
             msTime=0;
         }
 
-        if(mjN>5) continue; // много фронтов за время 1050-1950
+        if(mjN>5) continue; // too much rising edges in window 1050-1950
 
         for(i=100;i;i--){
             while(!msTime);
             msTime=0;
         }
-        if(mjN!=6) continue; // если нет третьего фронта в воротах 1950-2050
+        if(mjN!=6) continue; // if no third rising edge in window 1950-2050
 
         for(i=900;i;i--){
             while(!msTime);
             msTime=0;
         }
 
-        if(mjN>7) continue; // много фронтов за время 2050-2950
+        if(mjN>7) continue; // too much rising edges in window 2050-2950
         for(i=100;i;i--){
             while(!msTime);
             msTime=0;
         }
-        if(mjN!=8) continue; // если нет четвёртого фронта в воротах 2950-3050
+        if(mjN!=8) continue; // if no fourth rising edge in window 2950-3050
 
         for(i=900;i;i--){
             while(!msTime);
             msTime=0;
         }
 
-        if(mjN>9) continue; // много фронтов за время 3050-3950
+        if(mjN>9) continue; // too much rising edges in window 3050-3950
 
         for(i=100;i;i--){
             while(!msTime);
             msTime=0;
         }
-        if(mjN!=10) continue; // если нет пятого фронта в воротах 3950-4050
+        if(mjN!=10) continue; // if no fifth rising edge in window 3950-4050
 
         for(i=600;i;i--){
             while(!msTime);
             msTime=0;
         }
 
-        if(mjN>11) continue; // много фронтов за время 4050-4650
+        if(mjN>11) continue; // too much rising edges in window 4050-4650
 
 
 // проверка пяти импульсов прошла успешно! Теперь даём выходной импульс
