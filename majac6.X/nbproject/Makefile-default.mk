@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=core/core.c core/core_timer.c drivers/pic14/adctype0/adctype0.c drivers/pic14/wdt/wdt.c drivers/pic14/soft_uart/soft_uart.c
+SOURCEFILES_QUOTED_IF_SPACED=core/core.c core/core_timer.c drivers/pic14/adctype0/adctype0.c drivers/pic14/soft_uart/soft_uart.c drivers/pic14/wdt/wdt.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/core/core.p1 ${OBJECTDIR}/core/core_timer.p1 ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.p1 ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1 ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/core/core.p1.d ${OBJECTDIR}/core/core_timer.p1.d ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.p1.d ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/core/core.p1 ${OBJECTDIR}/core/core_timer.p1 ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.p1 ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1 ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/core/core.p1.d ${OBJECTDIR}/core/core_timer.p1.d ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.p1.d ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1.d ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/core/core.p1 ${OBJECTDIR}/core/core_timer.p1 ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.p1 ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1 ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1
+OBJECTFILES=${OBJECTDIR}/core/core.p1 ${OBJECTDIR}/core/core_timer.p1 ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.p1 ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1 ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1
 
 # Source Files
-SOURCEFILES=core/core.c core/core_timer.c drivers/pic14/adctype0/adctype0.c drivers/pic14/wdt/wdt.c drivers/pic14/soft_uart/soft_uart.c
+SOURCEFILES=core/core.c core/core_timer.c drivers/pic14/adctype0/adctype0.c drivers/pic14/soft_uart/soft_uart.c drivers/pic14/wdt/wdt.c
 
 
 CFLAGS=
@@ -111,14 +111,6 @@ ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.p1: drivers/pic14/adctype0/adctype0
 	@-${MV} ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.d ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/drivers/pic14/wdt/wdt.p1: drivers/pic14/wdt/wdt.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/drivers/pic14/wdt" 
-	@${RM} ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d 
-	@${RM} ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=32 --float=32 --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,-stackcall,-clib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/drivers/pic14/wdt/wdt.p1  drivers/pic14/wdt/wdt.c 
-	@-${MV} ${OBJECTDIR}/drivers/pic14/wdt/wdt.d ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
 ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1: drivers/pic14/soft_uart/soft_uart.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/drivers/pic14/soft_uart" 
 	@${RM} ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1.d 
@@ -126,6 +118,14 @@ ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1: drivers/pic14/soft_uart/soft_
 	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=32 --float=32 --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,-stackcall,-clib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1  drivers/pic14/soft_uart/soft_uart.c 
 	@-${MV} ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.d ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/drivers/pic14/wdt/wdt.p1: drivers/pic14/wdt/wdt.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/drivers/pic14/wdt" 
+	@${RM} ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d 
+	@${RM} ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=32 --float=32 --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,-stackcall,-clib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/drivers/pic14/wdt/wdt.p1  drivers/pic14/wdt/wdt.c 
+	@-${MV} ${OBJECTDIR}/drivers/pic14/wdt/wdt.d ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 else
 ${OBJECTDIR}/core/core.p1: core/core.c  nbproject/Makefile-${CND_CONF}.mk
@@ -152,14 +152,6 @@ ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.p1: drivers/pic14/adctype0/adctype0
 	@-${MV} ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.d ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/drivers/pic14/adctype0/adctype0.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/drivers/pic14/wdt/wdt.p1: drivers/pic14/wdt/wdt.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}/drivers/pic14/wdt" 
-	@${RM} ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d 
-	@${RM} ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=32 --float=32 --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,-stackcall,-clib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/drivers/pic14/wdt/wdt.p1  drivers/pic14/wdt/wdt.c 
-	@-${MV} ${OBJECTDIR}/drivers/pic14/wdt/wdt.d ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
 ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1: drivers/pic14/soft_uart/soft_uart.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/drivers/pic14/soft_uart" 
 	@${RM} ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1.d 
@@ -167,6 +159,14 @@ ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1: drivers/pic14/soft_uart/soft_
 	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=32 --float=32 --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,-stackcall,-clib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1  drivers/pic14/soft_uart/soft_uart.c 
 	@-${MV} ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.d ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/drivers/pic14/soft_uart/soft_uart.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/drivers/pic14/wdt/wdt.p1: drivers/pic14/wdt/wdt.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/drivers/pic14/wdt" 
+	@${RM} ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d 
+	@${RM} ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=32 --float=32 --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-osccal,-resetbits,-download,-stackcall,-clib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/drivers/pic14/wdt/wdt.p1  drivers/pic14/wdt/wdt.c 
+	@-${MV} ${OBJECTDIR}/drivers/pic14/wdt/wdt.d ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/drivers/pic14/wdt/wdt.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 

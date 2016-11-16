@@ -10,5 +10,8 @@ void (*volatile ct_handler0)(void);
 void (*volatile ct_handler1)(void);
 volatile uint8_t counter0, counter1;
 
+void coretimer_routine1_start(uint8_t period, void (*handler)(void));
+void coretimer_routine1_stop(void);
 
-#endif CORE_TIMER_H
+
+#endif

@@ -18,22 +18,85 @@
 **/
 
 #include "../../../core/hardware.h"
+#include "../../../core/core_timer.h"
 
-#define OUT_PIN     GPIO0
+/*
+ * todo:
+ * add rx primitives
+ * int start, some ct handler - routine
+ */
+
+/*module use ct_handler1 resource*/
+#define BAUDRATE9600    103
+#define BIT_COUNT       8
+
+#define LINE_CLR    do{GPIO&=~(1<<0);}while(0)
+#define LINE_SET    do{GPIO|=(1<<0);}while(0)
+
 
 typedef enum{
     idle = 0,
-    tx_req,
     start,
     data,
     stop,
     done,
 }soft_uart_state_t;
 
+soft_uart_state_t soft_uart_state;
+static uint8_t substate;
+static uint8_t tx_data;
+
 void soft_uart_init(void){
-    
+    LINE_SET;
+    soft_uart_state = idle;
+    substate = 0;
+    ct_handler1 = NULL;
 }
 
-void soft_uart_tx(uint8_t data){
-    
+/*
+ * should be called every baud period
+ */
+void soft_uart_ctl(void){
+    switch(soft_uart_state){
+        case start:
+            LINE_SET;
+            soft_uart_state++;
+            substate = BIT_COUNT;
+        break;
+        
+        case data:
+            if(tx_data&0x01){
+                LINE_SET;
+            }else{
+                LINE_CLR;
+            }
+            tx_data>>=1;
+            substate--;
+            if(!substate) soft_uart_state++;
+        break;
+        
+        case stop:
+            LINE_SET;
+            soft_uart_state++;
+        break;
+        
+        case done:
+        default:
+            LINE_SET;
+            soft_uart_state = idle;
+            substate = 0;
+        break;
+    }
+}
+
+result_t soft_uart_tx(uint8_t data){
+    if(soft_uart_state == idle){
+        soft_uart_state = start;
+        substate = 0;
+        tx_data = data;
+        
+        
+        return SUCCESS;
+    }
+    return BUSY;
 }
