@@ -59,10 +59,10 @@ unsigned int i;
 
 	pinOut=1;
 
-    //ADCON0=0b00001001;//вкл AN2 и АЦП выравнивание влево
-    //ANSEL= 0b00010100;//Fosc/8 вход2 аналоговый
-    ADCON0=0b00000101;//вкл AN1 и АЦП выравнивание влево
-    ANSEL= 0b01010010;//Fosc/16 вход1 аналоговый
+    //ADCON0=0b00001001;//ADC: Select Ch2(AN2), Left justify, ADC On
+    //ANSEL= 0b00010100;//ADC: conversion clock Fosc/8, AN2 is analog pin
+    ADCON0=0b00000101;//ADC: Select Ch1(AN1), Left justify, ADC On
+    ANSEL= 0b01010010;//ADC: conversion clock Fosc/16, AN1 is analog pin
     T0IE=1;
     GIE=1;
 
@@ -192,12 +192,12 @@ if(MODE) LED=0;// посветив от времени -20мс по +950мс п�
 
 
 void
-interrupt isr(void){  //необходимо ровно 8кГц таймерное прерывание
-static char cntBit=11; // для счета числа бит
+interrupt isr(void){  //ISR should execute exactly at 8kHz rate (from timer)
+static char cntBit=11; // bits counter
 
 static signed int c,e;
 static unsigned char level=0;
-static signed char cntVal=8; // считает от 8
+static signed char cntVal=8; // countdown from 8
 
 signed int b,y;
 signed int temp1;
@@ -211,7 +211,7 @@ char    btemp;
 
   if(send)
   {
-    TMR0+=-205;//соответствует 9600 бит/сек
+    TMR0+=-205;// for 9600 bps soft UART
 
         if(--cntBit)
 		{
@@ -227,10 +227,10 @@ char    btemp;
   }
   else
   {
-    TMR0+=-247;//соответствует 125мкс
+    TMR0+=-247;//for 125us
 
 
-    *((char*)(&ADC)+1)=ADRESH^0x80; // 8 бит хватит
+    *((char*)(&ADC)+1)=ADRESH^0x80; // 8 bits is enough
     *((signed char *)(&ADC)+1)>>=1; // если надо с ограничителем уровня
     GODONE=1;
 
@@ -240,8 +240,8 @@ char    btemp;
     b>>=1;
     b>>=1;
     b>>=1;
-    b>>=1;  // делим на 16 без округления
-            // получаем полосу 170Гц
+    b>>=1;  // integer divide by 16
+            // for 170 Hz bandwith
     y=b+e;
     *((char *)(&temp1))=*((char *)(& e))=    y & 0xFF;
     *((char *)(&temp1)+1)=*((char *)(& e)+1)=y >> 8;
@@ -255,8 +255,8 @@ char    btemp;
     temp1>>=1;      // *13/16
     temp1>>=1;      // *13/32
 
-    e+=temp1;       // *45/32 = 1.40625 почти 2*cos(Pi*2*1кГц/8кГц)=1.4142135
-                    // или 1007 Гц при 8кГц тактовой АЦП
+    e+=temp1;       // *45/32 = 1.40625 it almost 2*cos(Pi*2*1кГц/8кГц)=1.4142135
+                    // or 1007 Hz at 8kHz ADC rate
     e-=c;
     c=y+b;
 
@@ -269,8 +269,8 @@ char    btemp;
     }
 
     if(y>=0)
-    if(level<=*((char*)(&y)+1)){ // хранимый уровень меньше чем новое значение
-        level=(char)(y>>8);    // обновить и установить новый срок хранения
+    if(level<=*((char*)(&y)+1)){ // if saved level below new value
+        level=(char)(y>>8);    // store new value and refresh time-to-live
         cntVal=8;
     }
 
@@ -282,13 +282,13 @@ char    btemp;
 
         btemp=level>>1;
         if(ust<btemp) {
-            // высокий уровень
+            // high level
 
 			if(!MODE) LED=1;
 			state=1;
             ust=level;
             mjN++;
-            mjN&=0xFE;// посчитать только после перепада 0->1
+            mjN&=0xFE;// count only transition 0->1
         }
         else {
             btemp=ust>>1;
