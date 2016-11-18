@@ -59,10 +59,10 @@ unsigned int i;
 
 	pinOut=1;
 
-    //ADCON0=0b00001001;//вкл AN2 и АЦП выравнивание влево
-    //ANSEL= 0b00010100;//Fosc/8 вход2 аналоговый
-    ADCON0=0b00000101;//вкл AN1 и АЦП выравнивание влево
-    ANSEL= 0b01010010;//Fosc/16 вход1 аналоговый
+    //ADCON0=0b00001001;//ADC: Select Ch2(AN2), Left justify, ADC On
+    //ANSEL= 0b00010100;//ADC: conversion clock Fosc/8, AN2 is analog pin
+    ADCON0=0b00000101;//ADC: Select Ch1(AN1), Left justify, ADC On
+    ANSEL= 0b01010010;//ADC: conversion clock Fosc/16, AN1 is analog pin
     T0IE=1;
     GIE=1;
 
