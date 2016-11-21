@@ -48,7 +48,7 @@ unsigned int i;
 
 
     OPTION=0x0F; //TMR0 source is internal w wiith no prescaler
-    VRCON=0;//генератор опорного
+    VRCON=0;//shutdown comparator voltage reference
 
     CMCON=7; //Comparator off
     WPU=0;//disable all weak pullups
@@ -131,16 +131,16 @@ unsigned int i;
         if(mjN>11) continue; // too much rising edges in window 4050-4650
 
 
-// проверка пяти импульсов прошла успешно! Теперь даём выходной импульс
-// ради которого всё и затевалось.
-if(MODE) LED=1; // Включить светодиод для контроля
-        for(i=300;i;i--){// Выдать импульс во время -350мс по -50мс
+// all five input pulses are ok
+// begin output pulse
+if(MODE) LED=1; // switch on control LED
+        for(i=300;i;i--){// make pulse in time range from -350ms to -50ms
             while(!msTime);
             msTime=0;
         }
-if(MODE) LED=0;// посветив от времени -20мс по +950мс погаснуть
+if(MODE) LED=0;// control LED was on from -20ms to +950ms, then swotch off
 
-// тут должен начаться замер длительности 6-ого импульса
+// here should start width measurement of 6-th pulse
         a=0;
 		for(i=60;i;i--)
 		{
@@ -159,13 +159,13 @@ if(MODE) LED=0;// посветив от времени -20мс по +950мс п�
 			{
 				while(!msTime);
 				msTime=0;
- 				a++;			// считает время импульса в милисекундах
+ 				a++;			// counte pulse width in ms
 				if(!state)	break;
 
-			} // до окончания 6-ого импульса считать время
+			} // count time until the last of the sixth pulse
 		}
 
-		if(!i) a=0xff; // ошибка слишком много
+		if(!i) a=0xff; // error! too much
 		if(a<90) a=0xFF;
 		if(a!=0xFF)
 		{
@@ -173,18 +173,18 @@ if(MODE) LED=0;// посветив от времени -20мс по +950мс п�
 			a-=90;
 			tempA=a;
 
-			a/=20; // получится деление с округлением
+			a/=20; // integer division
 			tempA%=20;
-			if((tempA < 5) || (tempA > 15) ) a = tempA | 0x80; // если ошибка больше нормы - не выдавать данные
-														 // а выдать значение остатка от деления
+			if((tempA < 5) || (tempA > 15) ) a = tempA | 0x80; // if error more than expected - don't send data
+														 // but send reminder of division
 
 		}
 
         a<<=1;
-        a|=0xFE00; // стоп биты тут
-        a&=0xFFFE; // старт бит тут
+        a|=0xFE00; // stop bits
+        a&=0xFFFE; // start bit
         send=1;
-		while(send); // ждать окончание передачи байта
+		while(send); // wait byte transmit ends
 
 
 	}while(1);
@@ -234,7 +234,7 @@ char    btemp;
     *((signed char *)(&ADC)+1)>>=1; // если надо с ограничителем уровня
     GODONE=1;
 
-// начало полосового фильтра на 1кГц
+// begin 1kHz bandpass filter
 
     b=ADC-e;
     b>>=1;
@@ -260,7 +260,7 @@ char    btemp;
     e-=c;
     c=y+b;
 
-// конец полосового фильтра 1кГц
+// end 1kHz bandpass filter
 
 // начало  детектора огибающей
     if(!--cntVal) {
@@ -293,7 +293,7 @@ char    btemp;
         else {
             btemp=ust>>1;
             if(btemp>=level){
-                // низкий уровень
+                // low level
 
 				if(!MODE) LED=0;
 				state=0;
