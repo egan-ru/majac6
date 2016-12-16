@@ -17,12 +17,3 @@
     http://www.microchip.su/showthread.php?t=17856&page=1
 **/
 
-#ifndef SOFT_UART_H
-#define SOFT_UART_H
-
-
-result_t soft_uart_tx(uint8_t data);
-void soft_uart_ctl(void);
-void soft_uart_init(void);
-
-#endif

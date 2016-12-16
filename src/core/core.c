@@ -19,19 +19,33 @@
 **/
 
 #include "core.h"
+#include "../drivers/pic14/soft_uart/soft_uart.h"
+
+typedef enum{
+    
+    
+}majac6_fsm_t;
+
+majac6_fsm_t the_majac6;
+
+
 
 void main(void){
     boot_init();
     wdt_init();
     coretimer_init();
     adctype0_init();
-    
+    soft_uart_init();
     
     for(;;){
         wdt_ctl();
-        /*user application there*/
         
-        
+//        if(!waiting){
+//            switch(the_majac6){
+//                
+//                
+//            }
+//        }
         
     }
 }

@@ -65,31 +65,33 @@ uint8_t result;
 }
 
 
-__attribute__((hot)) void coretimer_handler(void){
-uint8_t min_compare;    
+__attribute__((hot)) void coretimer_handler(void){  
     INTCON&=~(1<< _INTCON_T0IF_MASK);
     ct_proc(compare);
     if(ct_handler0||ct_handler1){
-        
+        compare = ct_find();
+        TMR0 = UINT8_MAX - compare;
     }else{
-        
+        INTCON&=(1<<_INTCON_T0IE_MASK);
     }
-    
-    
-    
-    compare = min_compare;
-    TMR0 = UINT8_MAX - min_compare;
 }
 
-void coretimer_routine1_start(uint8_t period, void (*handler)(void)){
-    ct_counter0 = 0;
-    ct_period0 = period;
-    ct_handler0 = handler;
-    
+result_t coretimer_routine1_start(uint8_t period, void (*handler)(void)){
+    if(ct_handler1 == NULL){
+        ct_counter0 = ct_period0 = period;
+        ct_handler0 = handler;
+        return SUCCESS;
+    }
+    return BUSY;
 }
 
-void coretimer_routine1_stop(void){
-    
+result_t coretimer_routine1_stop(void){
+    if(ct_handler1){
+        ct_handler1 = 0;
+        ct_counter0 = ct_period0 = 0;
+        return SUCCESS;
+    }
+    return ERROR;
 }
 
 #endif

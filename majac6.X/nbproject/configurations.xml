@@ -57,6 +57,7 @@
     <Elem>../src/drivers/pic14/adctype0</Elem>
     <Elem>../src/drivers/pic14/soft_uart</Elem>
     <Elem>../src/drivers/pic14/wdt</Elem>
+    <Elem>../src/lib/bandpass_filter</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

@@ -30,6 +30,9 @@
 #define BAUDRATE9600    103
 #define BIT_COUNT       8
 
+#define PARITY_EVEN
+
+
 #define LINE_CLR    do{GPIO&=~(1<<0);}while(0)
 #define LINE_SET    do{GPIO|=(1<<0);}while(0)
 
@@ -38,6 +41,9 @@ typedef enum{
     idle = 0,
     start,
     data,
+#ifdef PARITY_EVEN
+    parity,      
+#endif
     stop,
     done,
 }soft_uart_state_t;
@@ -45,6 +51,10 @@ typedef enum{
 soft_uart_state_t soft_uart_state;
 static uint8_t substate;
 static uint8_t tx_data;
+
+#ifdef PARITY_EVEN
+static bool parity_even;
+#endif
 
 void soft_uart_init(void){
     LINE_SET;
@@ -60,7 +70,7 @@ void soft_uart_ctl(void){
     switch(soft_uart_state){
         case start:
             LINE_SET;
-            soft_uart_state++;
+            ++soft_uart_state;
             substate = BIT_COUNT;
         break;
         
@@ -71,13 +81,25 @@ void soft_uart_ctl(void){
                 LINE_CLR;
             }
             tx_data>>=1;
-            substate--;
-            if(!substate) soft_uart_state++;
+            --substate;
+            if(!substate) ++soft_uart_state;
         break;
+        
+        
+#ifdef PARITY_EVEN       
+        case parity:
+            if(parity_even){
+                LINE_SET;
+            }else{
+                LINE_CLR;
+            }       
+            ++soft_uart_state;
+        break;
+#endif
         
         case stop:
             LINE_SET;
-            soft_uart_state++;
+            ++soft_uart_state;
         break;
         
         case done:
@@ -85,18 +107,31 @@ void soft_uart_ctl(void){
             LINE_SET;
             soft_uart_state = idle;
             substate = 0;
+            ct_handler1 = NULL;
         break;
     }
 }
 
 result_t soft_uart_tx(uint8_t data){
+#ifdef PARITY_EVEN 
+uint8_t parity_counter, parity_data;
+#endif    
+    
     if(soft_uart_state == idle){
         soft_uart_state = start;
         substate = 0;
         tx_data = data;
-        
-        
+        #ifdef PARITY_EVEN
+        parity_data = 0;
+        for(parity_counter = 8;parity_counter;--parity_counter){
+            parity_data+= data&0x01;
+            data>>=1;
+        }
+        parity_even = parity_data&0x01;
+        #endif
+        coretimer_routine1_start(BAUDRATE9600, soft_uart_ctl);
         return SUCCESS;
     }
     return BUSY;
 }
+
