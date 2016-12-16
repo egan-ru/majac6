@@ -4,25 +4,25 @@
     <logicalFolder name="f5" displayName="_boot" projectFiles="true">
     </logicalFolder>
     <logicalFolder name="f1" displayName="_core" projectFiles="true">
-      <itemPath>core/core.c</itemPath>
-      <itemPath>core/core.h</itemPath>
-      <itemPath>core/core_timer.c</itemPath>
-      <itemPath>core/core_timer.h</itemPath>
-      <itemPath>core/hardware.h</itemPath>
+      <itemPath>../src/core/core.c</itemPath>
+      <itemPath>../src/core/core.h</itemPath>
+      <itemPath>../src/core/core_timer.c</itemPath>
+      <itemPath>../src/core/core_timer.h</itemPath>
+      <itemPath>../src/core/hardware.h</itemPath>
     </logicalFolder>
     <logicalFolder name="f2" displayName="_drivers" projectFiles="true">
       <logicalFolder name="f1" displayName="pic14" projectFiles="true">
         <logicalFolder name="f1" displayName="adctype0" projectFiles="true">
-          <itemPath>drivers/pic14/adctype0/adctype0.c</itemPath>
-          <itemPath>drivers/pic14/adctype0/adctype0.h</itemPath>
+          <itemPath>../src/drivers/pic14/adctype0/adctype0.c</itemPath>
+          <itemPath>../src/drivers/pic14/adctype0/adctype0.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="soft_uart" projectFiles="true">
-          <itemPath>drivers/pic14/soft_uart/soft_uart.c</itemPath>
-          <itemPath>drivers/pic14/soft_uart/soft_uart.h</itemPath>
+          <itemPath>../src/drivers/pic14/soft_uart/soft_uart.c</itemPath>
+          <itemPath>../src/drivers/pic14/soft_uart/soft_uart.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f3" displayName="wdt" projectFiles="true">
-          <itemPath>drivers/pic14/wdt/wdt.c</itemPath>
-          <itemPath>drivers/pic14/wdt/wdt.h</itemPath>
+          <itemPath>../src/drivers/pic14/wdt/wdt.c</itemPath>
+          <itemPath>../src/drivers/pic14/wdt/wdt.h</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -53,6 +53,10 @@
     <Elem>drivers/pic14/adctype0</Elem>
     <Elem>drivers/pic14/wdt</Elem>
     <Elem>drivers/pic14/soft_uart</Elem>
+    <Elem>../src/core</Elem>
+    <Elem>../src/drivers/pic14/adctype0</Elem>
+    <Elem>../src/drivers/pic14/soft_uart</Elem>
+    <Elem>../src/drivers/pic14/wdt</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
